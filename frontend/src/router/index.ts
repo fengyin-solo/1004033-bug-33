@@ -13,6 +13,7 @@ const DrainNetwork = () => import('@/views/drain_network/index.vue')
 const WaterQuality = () => import('@/views/water_quality/index.vue')
 const FlowMonitor = () => import('@/views/flow_monitor/index.vue')
 const Emergency = () => import('@/views/emergency/index.vue')
+const EmergencyDetail = () => import('@/views/emergency/detail.vue')
 const LeakDetect = () => import('@/views/leak_detect/index.vue')
 const Trenchless = () => import('@/views/trenchless/index.vue')
 const PipeCleaning = () => import('@/views/pipe_cleaning/index.vue')
@@ -36,6 +37,7 @@ const router = createRouter({
     { path: '/water_quality', name: 'water_quality', component: WaterQuality },
     { path: '/flow_monitor', name: 'flow_monitor', component: FlowMonitor },
     { path: '/emergency', name: 'emergency', component: Emergency },
+    { path: '/emergency/:id(\\d+)', name: 'emergency-detail', component: EmergencyDetail, props: true },
     { path: '/leak_detect', name: 'leak_detect', component: LeakDetect },
     { path: '/trenchless', name: 'trenchless', component: Trenchless },
     { path: '/pipe_cleaning', name: 'pipe_cleaning', component: PipeCleaning },
