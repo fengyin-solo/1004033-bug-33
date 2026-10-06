@@ -66,7 +66,12 @@ export function exportEntries(key: string): { filename: string; content: string 
   const header = ['编号', ...meta.fields, '当前状态']
   const lines = [header.join(',')]
   for (const row of listRows(key)) {
-    lines.push([row.id, ...meta.fields.map((field) => row[field] ?? ''), row.status].join(','))
+    const cells = [row.id, ...meta.fields.map((field) => row[field] ?? ''), row.status].map((cell) => {
+      // 复杂字段（如应急事件的响应过程）以 JSON 文本落格，避免被逗号拆坏。
+      const text = typeof cell === 'object' ? JSON.stringify(cell) : String(cell)
+      return `"${text.replace(/"/g, '""')}"`
+    })
+    lines.push(cells.join(','))
   }
   return { filename: `${meta.name}-清单.csv`, content: `\uFEFF${lines.join('\n')}` }
 }

@@ -5,7 +5,28 @@ export type EntryRow = {
   status: string
   pending: boolean
   abnormal: boolean
-  [field: string]: string | number | boolean
+  [field: string]: string | number | boolean | HistoryEntry[]
+}
+
+// 应急事件的一次响应/处置过程记录：状态可以被并发覆盖，过程始终留痕可查。
+export type HistoryEntry = {
+  action: string
+  fromStatus: string
+  toStatus: string
+  operator: string
+  time: string
+  note?: string
+}
+
+export type EmergencyEvent = EntryRow & {
+  辖区: string
+  修订版本: number
+  响应过程: HistoryEntry[]
+}
+
+export type EmergencyFilters = {
+  事发地点: string
+  事件类型: string
 }
 
 export type ModuleMeta = {
